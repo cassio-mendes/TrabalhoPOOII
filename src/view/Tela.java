@@ -20,12 +20,12 @@ public class Tela extends JFrame {
         Icon whatsappIcone = new ImageIcon("images/whatsapp_icon.png");
         Icon logIcone = new ImageIcon("images/log_icon.png");
 
-        JPanel cadastrarTab = new JPanel();
-        JPanel editarTab = new JPanel();
-        JPanel consultarTab = new JPanel();
-        JPanel excluirTab = new JPanel();
-        JPanel compromissosTab = new JPanel();
-        JPanel logTab = new JPanel();
+        PainelCadastro cadastrarTab = new PainelCadastro();
+        PainelEdicao editarTab = new PainelEdicao();
+        PainelConsulta consultarTab = new PainelConsulta();
+        PainelExclusao excluirTab = new PainelExclusao();
+        PainelWhatsapp compromissosTab = new PainelWhatsapp();
+        PainelLogs logTab = new PainelLogs();
 
         menu.addTab("Cadastrar", newIcone, cadastrarTab);
         menu.addTab("Editar", noteIcone, editarTab);
@@ -35,26 +35,7 @@ public class Tela extends JFrame {
         menu.addTab("Log", logIcone, logTab);
         this.add(menu);
 
-        preencherTelaAgendamento(cadastrarTab);
-        preencherTelaCompromissos(compromissosTab);
-
         this.setVisible(true);
-    }
-
-    private void preencherTelaAgendamento(JPanel cadastrarTab) {
-        cadastrarTab.setLayout(null);
-        Font fonte = new Font("Arial", Font.PLAIN, 18);
-
-        JLabel titulo = new JLabel("Cadastro de Compromissos");
-        titulo.setFont(new Font("Arial", Font.BOLD, 24));
-        titulo.setBounds(145, 30, 400, 25);
-        cadastrarTab.add(titulo);
-
-
-    }
-
-    private void preencherTelaCompromissos(JPanel compromissosTab) {
-
     }
 
     static void main() {
