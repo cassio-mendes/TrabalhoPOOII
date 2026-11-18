@@ -13,22 +13,26 @@ public class Tela extends JFrame {
         this.setResizable(false);
 
         JTabbedPane menu = new JTabbedPane();
-        Icon noteIcone = new ImageIcon("src/images/note_icon.png");
-        Icon newIcone = new ImageIcon("src/images/new_icon.png");
-        Icon lupaIcone = new ImageIcon("src/images/lupa_icon.png");
-        Icon lixoIcone = new ImageIcon("src/images/trash_icon.png");
-        Icon whatsappIcone = new ImageIcon("src/images/whatsapp_icon.png");
+        Icon noteIcone = new ImageIcon("images/note_icon.png");
+        Icon newIcone = new ImageIcon("images/new_icon.png");
+        Icon lupaIcone = new ImageIcon("images/lupa_icon.png");
+        Icon lixoIcone = new ImageIcon("images/trash_icon.png");
+        Icon whatsappIcone = new ImageIcon("images/whatsapp_icon.png");
+        Icon logIcone = new ImageIcon("images/log_icon.png");
+
         JPanel cadastrarTab = new JPanel();
         JPanel editarTab = new JPanel();
         JPanel consultarTab = new JPanel();
         JPanel excluirTab = new JPanel();
         JPanel compromissosTab = new JPanel();
+        JPanel logTab = new JPanel();
 
         menu.addTab("Cadastrar", newIcone, cadastrarTab);
         menu.addTab("Editar", noteIcone, editarTab);
         menu.addTab("Consultar", lupaIcone, consultarTab);
         menu.addTab("Excluir", lixoIcone, excluirTab);
         menu.addTab("Compromissos", whatsappIcone, compromissosTab);
+        menu.addTab("Log", logIcone, logTab);
         this.add(menu);
 
         preencherTelaAgendamento(cadastrarTab);
