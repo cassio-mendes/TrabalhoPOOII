@@ -140,10 +140,10 @@ public class PainelComponentes extends JPanel {
     public void limpar() {
         nomeField.setText("");
         descricaoArea.setText("");
-        dataField.setText("");
-        horarioField.setText("");
+        dataField.setValue(null);
+        horarioField.setValue(null);
         contatoField.setText("");
-        telefoneField.setText("");
+        telefoneField.setValue(null);
     }
 
     //Getters para os valores digitados
