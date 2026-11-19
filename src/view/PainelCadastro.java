@@ -136,6 +136,11 @@ public class PainelCadastro extends JPanel {
         cadastrarBtn.setBackground(Color.WHITE);
         cadastrarBtn.setFocusPainted(false);
         cadastrarBtn.setBounds(150, 340, 125, 30);
+
+        cadastrarBtn.addActionListener(e -> {
+            //Cadastro de compromisso:
+
+        });
         this.add(cadastrarBtn);
 
         JButton limparBtn = new JButton("LIMPAR");
@@ -143,6 +148,14 @@ public class PainelCadastro extends JPanel {
         limparBtn.setBackground(Color.WHITE);
         limparBtn.setFocusPainted(false);
         limparBtn.setBounds(340, 340, 120, 30);
+        limparBtn.addActionListener(e -> {
+            nomeField.setText("");
+            descricaoArea.setText("");
+            dataField.setText("");
+            horarioField.setText("");
+            contatoField.setText("");
+            telefoneField.setText("");
+        });
         this.add(limparBtn);
 
     }
