@@ -1,5 +1,9 @@
 package view;
 
+import model.CadastroCommand;
+import model.Command;
+import model.Compromisso;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,14 +20,38 @@ public class PainelCadastro extends JPanel {
         this.add(componentes);
 
         //Botões:
-        JButton cadastrarBtn = new JButton("CADASTRAR");
+        InvokerButton cadastrarBtn = new InvokerButton("CADASTRAR");
         cadastrarBtn.setFont(fonte);
         cadastrarBtn.setBackground(Color.WHITE);
         cadastrarBtn.setFocusPainted(false);
         cadastrarBtn.setBounds(150, 340, 125, 30);
         cadastrarBtn.addActionListener(e -> {
             //Cadastro de compromisso:
+            String nome = componentes.getNome();
+            String data = componentes.getData();
+            String horario = componentes.getHorario();
+            String contato = componentes.getContato();
+            String telefone = componentes.getTelefone();
 
+            //Informações faltando (a descrição é opcional)
+            if(nome.isEmpty() || data.isEmpty() || horario.isEmpty() || contato.isEmpty() || telefone.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, preencha todos os dados do " +
+                        "compromisso (a descrição é opcional)", "Dados faltando", JOptionPane.WARNING_MESSAGE);
+            } else {
+                String descricao = componentes.getDescricao(); //Pode ser uma String vazia
+                Compromisso compromisso = new Compromisso(nome, descricao, data, horario, contato, telefone);
+
+                cadastrarBtn.setCommand(new CadastroCommand(compromisso));
+                boolean result = cadastrarBtn.invokeCommand();
+
+                if(result) {
+                    JOptionPane.showMessageDialog(null, "Novo compromisso registrado!",
+                            "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao registrar novo compromisso...",
+                            "ERRO", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         });
         this.add(cadastrarBtn);
 
