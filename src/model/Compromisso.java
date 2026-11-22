@@ -17,4 +17,8 @@ public class Compromisso {
         this.situacao = false;
     }
 
+    @Override
+    public String toString() {
+        return this.nomeCompromisso + " | Dia: " + this.data + " | Horário: " + this.horario;
+    }
 }
