@@ -42,7 +42,7 @@ public class PainelCadastro extends JPanel {
                 Compromisso compromisso = new Compromisso(nome, descricao, data, horario, contato, telefone);
 
                 cadastrarBtn.setCommand(new CadastroCommand(compromisso));
-                boolean result = cadastrarBtn.invokeCommand();
+                boolean result = (Boolean) cadastrarBtn.invokeCommand();
 
                 if(result) {
                     JOptionPane.showMessageDialog(null, "Novo compromisso registrado!",

@@ -12,6 +12,6 @@ public class InvokerButton extends JButton {
 
     public void setCommand(Command c) { this.command = c; }
 
-    public boolean invokeCommand() { return this.command.execute(); }
+    public Object invokeCommand() { return this.command.execute(); }
 
 }

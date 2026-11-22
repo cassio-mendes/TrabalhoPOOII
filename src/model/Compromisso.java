@@ -19,7 +19,7 @@ public class Compromisso {
     }
 
     public Compromisso(long id, String nomeCompromisso, String descricao, String data,
-                       String horario, String nomeContato, String telefone) {
+                       String horario, String nomeContato, String telefone, boolean situacao) {
 
         this.id = id;
         this.nomeCompromisso = nomeCompromisso;
@@ -28,7 +28,7 @@ public class Compromisso {
         this.telefone = telefone;
         this.data = data;
         this.horario = horario;
-        this.situacao = false;
+        this.situacao = situacao;
     }
 
     @Override

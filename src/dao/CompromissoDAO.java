@@ -4,7 +4,10 @@ import model.Compromisso;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CompromissoDAO {
 
@@ -30,6 +33,32 @@ public class CompromissoDAO {
         } catch(SQLException e) {
             System.out.println(e.getMessage());
             return false;
+        }
+    }
+
+    public static List<Compromisso> listarTodos() {
+
+        try(Connection connection = Conexao.getConexao()) {
+
+            String sql = "SELECT * FROM compromisso;";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet result = statement.executeQuery();
+
+            List<Compromisso> retorno = new ArrayList<>();
+            while(result.next()) {
+                Compromisso c = new Compromisso(result.getLong("id"), result.getString("nome"),
+                    result.getString("descricao"), result.getString("data"),
+                    result.getString("horario"), result.getString("nomeContato"),
+                    result.getString("telefone"), result.getBoolean("situacao"));
+
+                retorno.add(c);
+            }
+
+            return retorno;
+
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 

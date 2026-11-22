@@ -11,7 +11,7 @@ public class CadastroCommand implements Command {
     }
 
     @Override
-    public boolean execute() { //Cadastro do compromisso
+    public Object execute() { //Cadastro do compromisso
         return CompromissoDAO.inserir(compromisso);
     }
 }

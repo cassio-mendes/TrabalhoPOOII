@@ -171,4 +171,29 @@ public class PainelComponentes extends JPanel {
         return telefoneField.getText();
     }
 
+    //Setters para os valores buscados do banco
+    public void setNome(String text) {
+        nomeField.setText(text);
+    }
+
+    public void setDescricao(String text) {
+        descricaoArea.setText(text);
+    }
+
+    public void setData(String text) {
+        dataField.setText(text);
+    }
+
+    public void setHorario(String text) {
+        horarioField.setText(text);
+    }
+
+    public void setContato(String text) {
+        contatoField.setText(text);
+    }
+
+    public void setTelefone(String text) {
+        telefoneField.setText(text);
+    }
+
 }

@@ -30,6 +30,12 @@ public class Tela extends JFrame {
         menu.addTab("Consultar", lupaIcone, consultarTab);
         menu.addTab("Compromissos", whatsappIcone, compromissosTab);
         menu.addTab("Log", logIcone, logTab);
+
+        menu.addChangeListener(e -> {
+            if(menu.getSelectedIndex() == 1)
+                editarTab.preencherLista();
+        });
+
         this.add(menu);
 
         this.setVisible(true);

@@ -1,10 +1,12 @@
 package view;
 
 import model.Compromisso;
+import model.ListarCommand;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class PainelEdicao extends JPanel {
 
@@ -43,6 +45,28 @@ public class PainelEdicao extends JPanel {
         listaCompromissos.setFont(fonte);
         listaCompromissos.setBounds(50, 400, 500, 150);
         listaCompromissos.setBorder(new LineBorder(Color.BLACK, 1));
+        listaCompromissos.addListSelectionListener(e -> {
+
+            if(!listaCompromissos.isSelectionEmpty()) {
+                Compromisso c = listaCompromissos.getSelectedValue();
+
+                //Atualizando valores dos campos de entrada
+                componentes.setNome(c.getNomeCompromisso());
+                componentes.setDescricao(c.getDescricao());
+                componentes.setData(c.getData());
+                componentes.setHorario(c.getHorario());
+                componentes.setContato(c.getNomeContato());
+                componentes.setTelefone(c.getTelefone());
+
+                if(c.isSituacao()) {
+                    concluidoRBtn.setSelected(true);
+                    pendenteRBtn.setSelected(false);
+                } else {
+                    pendenteRBtn.setSelected(true);
+                    concluidoRBtn.setSelected(false);
+                }
+            }
+        });
         this.add(listaCompromissos);
 
         JButton salvarBtn = new JButton("SALVAR");
@@ -63,6 +87,19 @@ public class PainelEdicao extends JPanel {
         limparBtn.setBounds(400, 575, 100, 30);
         this.add(limparBtn);
 
+    }
+
+    public void preencherLista() {
+        ArrayList<Compromisso> listaCompleta = (ArrayList<Compromisso>) new ListarCommand().execute();
+
+        //Atualiza a lista com os novos elementos
+        listModel.removeAllElements();
+        listModel.addAll(listaCompleta);
+
+        //Limpa os campos de entrada
+        componentes.limpar();
+        pendenteRBtn.setSelected(false);
+        concluidoRBtn.setSelected(false);
     }
 
 }
