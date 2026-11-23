@@ -1,6 +1,7 @@
 package view;
 
 import model.Compromisso;
+import model.EditarCommand;
 import model.ListarCommand;
 
 import javax.swing.*;
@@ -69,10 +70,50 @@ public class PainelEdicao extends JPanel {
         });
         this.add(listaCompromissos);
 
-        JButton salvarBtn = new JButton("SALVAR");
+        InvokerButton salvarBtn = new InvokerButton("SALVAR");
         salvarBtn.setFont(fonte);
         salvarBtn.setBackground(Color.WHITE);
         salvarBtn.setBounds(100, 575, 100, 30);
+        salvarBtn.addActionListener(e -> {
+
+            if(listaCompromissos.isSelectionEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, selecione um compromisso na lista",
+                        "Compromisso faltando", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            String nome = componentes.getNome();
+            String data = componentes.getData();
+            String horario = componentes.getHorario();
+            String contato = componentes.getContato();
+            String telefone = componentes.getTelefone();
+
+            //Informações faltando (a descrição é opcional)
+            if(nome.isEmpty() || data.isEmpty() || horario.isEmpty() || contato.isEmpty() || telefone.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, preencha todos os dados do " +
+                        "compromisso (a descrição é opcional)", "Dados faltando", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            long id = listaCompromissos.getSelectedValue().getId();
+            String descricao = componentes.getDescricao();
+            boolean status = concluidoRBtn.isSelected();
+
+            Compromisso c = new Compromisso(id, nome, descricao, data, horario, contato, telefone, status);
+
+            salvarBtn.setCommand(new EditarCommand(c));
+            boolean resultado = (Boolean) salvarBtn.invokeCommand();
+
+            if(resultado) {
+                JOptionPane.showMessageDialog(null, "Compromisso " + nome +
+                        " atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                preencherLista(); //Atualizar lista
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao atualizar o compromisso " + nome,
+                        "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        });
         this.add(salvarBtn);
 
         JButton excluirBTn = new JButton("EXCLUIR");

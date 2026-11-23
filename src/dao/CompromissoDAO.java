@@ -62,4 +62,28 @@ public class CompromissoDAO {
         }
     }
 
+    public static boolean atualizar(Compromisso c) {
+        try(Connection conexao = Conexao.getConexao()) {
+
+            String sql = "UPDATE compromisso SET nome=?, descricao=?, data=?, horario=?, nomeContato=?, telefone=?, " +
+                    "situacao=? WHERE id = ?;";
+
+            PreparedStatement statement = conexao.prepareStatement(sql);
+            statement.setString(1, c.getNomeCompromisso());
+            statement.setString(2, c.getDescricao());
+            statement.setString(3, c.getData());
+            statement.setString(4, c.getHorario());
+            statement.setString(5, c.getNomeContato());
+            statement.setString(6, c.getTelefone());
+            statement.setBoolean(7, c.isSituacao());
+            statement.setLong(8, c.getId());
+            statement.execute();
+            return true;
+
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
 }
