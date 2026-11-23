@@ -85,6 +85,19 @@ public class PainelEdicao extends JPanel {
         limparBtn.setFont(fonte);
         limparBtn.setBackground(Color.WHITE);
         limparBtn.setBounds(400, 575, 100, 30);
+        limparBtn.addActionListener(e -> {
+            listaCompromissos.clearSelection();
+
+            componentes.setNome("");
+            componentes.setDescricao("");
+            componentes.setData("");
+            componentes.setHorario("");
+            componentes.setContato("");
+            componentes.setTelefone("");
+
+            pendenteRBtn.setSelected(false);
+            concluidoRBtn.setSelected(false);
+        });
         this.add(limparBtn);
 
     }
