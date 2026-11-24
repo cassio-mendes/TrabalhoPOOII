@@ -34,7 +34,9 @@ public class PainelCadastro extends JPanel {
             String telefone = componentes.getTelefone();
 
             //Informações faltando (a descrição é opcional)
-            if(nome.isEmpty() || data.isEmpty() || horario.isEmpty() || contato.isEmpty() || telefone.isEmpty()) {
+            if(nome.isBlank() || data.contains("_") || horario.contains("_") || contato.contains("_") ||
+                    telefone.contains("_")) {
+
                 JOptionPane.showMessageDialog(null, "Por favor, preencha todos os dados do " +
                         "compromisso (a descrição é opcional)", "Dados faltando", JOptionPane.WARNING_MESSAGE);
             } else {
@@ -47,6 +49,8 @@ public class PainelCadastro extends JPanel {
                 if(result) {
                     JOptionPane.showMessageDialog(null, "Novo compromisso registrado!",
                             "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+
+                    componentes.limpar();
                 } else {
                     JOptionPane.showMessageDialog(null, "Erro ao registrar novo compromisso...",
                             "ERRO", JOptionPane.ERROR_MESSAGE);

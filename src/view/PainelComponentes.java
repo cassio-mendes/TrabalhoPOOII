@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.text.ParseException;
 
 public class PainelComponentes extends JPanel {
@@ -78,6 +80,7 @@ public class PainelComponentes extends JPanel {
             dataField.setFont(fonte);
             dataField.setBounds(110, 188, 90, 20);
             dataField.setBorder(borda);
+            resetarCamposIncompletos(dataField);
             this.add(dataField);
         } catch(ParseException e) {
             JOptionPane.showMessageDialog(this, "ERRO no campo de data", "ERRO",
@@ -99,6 +102,7 @@ public class PainelComponentes extends JPanel {
             horarioField.setFont(fonte);
             horarioField.setBounds(110, 218, 55, 20);
             horarioField.setBorder(borda);
+            resetarCamposIncompletos(horarioField);
             this.add(horarioField);
         } catch(ParseException e) {
             JOptionPane.showMessageDialog(this, "ERRO no campo do horário", "ERRO",
@@ -131,12 +135,27 @@ public class PainelComponentes extends JPanel {
             telefoneField.setFont(fonte);
             telefoneField.setBounds(110, 278, 170, 20);
             telefoneField.setBorder(borda);
+            resetarCamposIncompletos(telefoneField);
             this.add(telefoneField);
         } catch(ParseException e) {
             JOptionPane.showMessageDialog(this, "ERRO no campo de telefone", "ERRO",
                     JOptionPane.ERROR_MESSAGE);
             System.err.println(e.getMessage());
         }
+    }
+
+    //Redefine o texto dos campos formatados ao perderem o foco, caso estejam incompletos
+    private void resetarCamposIncompletos(JFormattedTextField campo) {
+        campo.setFocusLostBehavior(JFormattedTextField.PERSIST); //Evita correção automática
+
+        campo.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(e.isTemporary()) return; //Ignora perdas de foco triviais (como mudar de janela)
+
+                if(campo.getText().contains("_")) campo.setValue(null);
+            }
+        });
     }
 
     //Limpa todos os campos
