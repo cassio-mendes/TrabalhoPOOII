@@ -14,6 +14,7 @@ public class PainelEdicao extends JPanel {
     private PainelComponentes componentes;
 
     private JRadioButton pendenteRBtn, concluidoRBtn;
+    private ButtonGroup btnGroup;
 
     private JList<Compromisso> listaCompromissos;
     private DefaultListModel<Compromisso> listModel;
@@ -37,7 +38,7 @@ public class PainelEdicao extends JPanel {
         concluidoRBtn.setBounds(300, 350, 120, 20);
         this.add(concluidoRBtn);
 
-        ButtonGroup btnGroup = new ButtonGroup();
+        btnGroup = new ButtonGroup();
         btnGroup.add(concluidoRBtn);
         btnGroup.add(pendenteRBtn);
 
@@ -66,6 +67,11 @@ public class PainelEdicao extends JPanel {
                     pendenteRBtn.setSelected(true);
                     concluidoRBtn.setSelected(false);
                 }
+
+                //Habilita a edição
+                componentes.permitirEdicao(true);
+                pendenteRBtn.setEnabled(true);
+                concluidoRBtn.setEnabled(true);
             }
         });
         this.add(listaCompromissos);
@@ -135,12 +141,15 @@ public class PainelEdicao extends JPanel {
             componentes.setHorario("");
             componentes.setContato("");
             componentes.setTelefone("");
+            componentes.permitirEdicao(false);
 
-            pendenteRBtn.setSelected(false);
-            concluidoRBtn.setSelected(false);
+            btnGroup.clearSelection();
+            pendenteRBtn.setEnabled(false);
+            concluidoRBtn.setEnabled(false);
         });
         this.add(limparBtn);
 
+        componentes.permitirEdicao(false); //Os campos começam "trancados"
     }
 
     public void preencherLista() {
@@ -152,8 +161,10 @@ public class PainelEdicao extends JPanel {
 
         //Limpa os campos de entrada
         componentes.limpar();
-        pendenteRBtn.setSelected(false);
-        concluidoRBtn.setSelected(false);
+        componentes.permitirEdicao(false);
+        btnGroup.clearSelection();
+        pendenteRBtn.setEnabled(false);
+        concluidoRBtn.setEnabled(false);
     }
 
 }

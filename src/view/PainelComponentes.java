@@ -77,6 +77,7 @@ public class PainelComponentes extends JPanel {
             dataField = new JFormattedTextField(dataFormatter);
             dataField.setFont(fonte);
             dataField.setBounds(110, 188, 90, 20);
+            dataField.setBorder(borda);
             this.add(dataField);
         } catch(ParseException e) {
             JOptionPane.showMessageDialog(this, "ERRO no campo de data", "ERRO",
@@ -97,6 +98,7 @@ public class PainelComponentes extends JPanel {
             horarioField = new JFormattedTextField(horarioFormatter);
             horarioField.setFont(fonte);
             horarioField.setBounds(110, 218, 55, 20);
+            horarioField.setBorder(borda);
             this.add(horarioField);
         } catch(ParseException e) {
             JOptionPane.showMessageDialog(this, "ERRO no campo do horário", "ERRO",
@@ -128,6 +130,7 @@ public class PainelComponentes extends JPanel {
             telefoneField = new JFormattedTextField(telefoneFormatter);
             telefoneField.setFont(fonte);
             telefoneField.setBounds(110, 278, 170, 20);
+            telefoneField.setBorder(borda);
             this.add(telefoneField);
         } catch(ParseException e) {
             JOptionPane.showMessageDialog(this, "ERRO no campo de telefone", "ERRO",
@@ -194,6 +197,16 @@ public class PainelComponentes extends JPanel {
 
     public void setTelefone(String text) {
         telefoneField.setText(text);
+    }
+
+    //Habilitar e desabilitar componentes de entrada
+    public void permitirEdicao(boolean status) {
+        nomeField.setEditable(status);
+        descricaoArea.setEditable(status);
+        dataField.setEditable(status);
+        horarioField.setEditable(status);
+        contatoField.setEditable(status);
+        telefoneField.setEditable(status);
     }
 
 }
