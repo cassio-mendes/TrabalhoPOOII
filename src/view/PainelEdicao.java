@@ -178,6 +178,12 @@ public class PainelEdicao extends JPanel {
     public void preencherLista() {
         ArrayList<Compromisso> listaCompleta = (ArrayList<Compromisso>) new ListarCommand().execute();
 
+        if(listaCompleta == null) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar os valores do banco de dados",
+                    "ERRO", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         //Atualiza a lista com os novos elementos
         listModel.removeAllElements();
         listModel.addAll(listaCompleta);
