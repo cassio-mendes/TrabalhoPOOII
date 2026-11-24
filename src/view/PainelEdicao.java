@@ -2,6 +2,7 @@ package view;
 
 import model.Compromisso;
 import model.EditarCommand;
+import model.ExcluirCommand;
 import model.ListarCommand;
 
 import javax.swing.*;
@@ -122,10 +123,32 @@ public class PainelEdicao extends JPanel {
         });
         this.add(salvarBtn);
 
-        JButton excluirBTn = new JButton("EXCLUIR");
+        InvokerButton excluirBTn = new InvokerButton("EXCLUIR");
         excluirBTn.setFont(fonte);
         excluirBTn.setBackground(Color.WHITE);
         excluirBTn.setBounds(250, 575, 100, 30);
+        excluirBTn.addActionListener(e -> {
+
+            if(listaCompromissos.isSelectionEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, selecione um compromisso na lista",
+                        "Compromisso faltando", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            Compromisso c = listaCompromissos.getSelectedValue();
+            excluirBTn.setCommand(new ExcluirCommand(c));
+
+            boolean resultado = (Boolean) excluirBTn.invokeCommand();
+            if(resultado) {
+                JOptionPane.showMessageDialog(null, "Compromisso " + c.getNomeCompromisso() +
+                        " excluído com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                preencherLista(); //Atualiza a lista
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao excluir o compromisso " +
+                        c.getNomeCompromisso(), "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        });
         this.add(excluirBTn);
 
         JButton limparBtn = new JButton("LIMPAR");

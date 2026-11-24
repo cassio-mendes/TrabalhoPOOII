@@ -77,7 +77,22 @@ public class CompromissoDAO {
             statement.setString(6, c.getTelefone());
             statement.setBoolean(7, c.isSituacao());
             statement.setLong(8, c.getId());
-            statement.execute();
+            statement.executeUpdate();
+            return true;
+
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean excluir(Compromisso c) {
+        try(Connection conexao = Conexao.getConexao()) {
+
+            String sql = "DELETE FROM compromisso WHERE id = ?;";
+            PreparedStatement statement = conexao.prepareStatement(sql);
+            statement.setLong(1, c.getId());
+            statement.executeUpdate();
             return true;
 
         } catch(SQLException e) {
