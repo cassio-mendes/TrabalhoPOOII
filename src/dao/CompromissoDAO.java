@@ -101,4 +101,66 @@ public class CompromissoDAO {
         }
     }
 
+    public static List<Compromisso> listarComFiltro(String ordem, String filtro, String pesquisa) {
+        try(Connection conexao = Conexao.getConexao()) {
+
+            //Montando SQL de consulta:
+
+            String direcao = ordem.equals("ANTIGOS") ? " ASC" : " DESC"; //Ordem da consulta
+            String where, sql2, and, sql3; //Condições do SELECT
+
+            if(!filtro.isEmpty() || !pesquisa.isEmpty()) { //Se há pelo menos uma condição
+                where = " WHERE";
+
+                //Define a condição de filtrar pela situação
+                sql2 = switch (filtro) {
+                    case "CONCLUIDOS" -> " situacao = true";
+                    case "PENDENTES" -> " situacao = false";
+                    default -> "";
+                };
+
+                //Define a condição de filtrar pelo nome
+                sql3 = pesquisa.isEmpty() ? "" : " nome LIKE ?";
+
+                //Se as duas condições existem, define o AND para conectá-las
+                and = (!sql2.isEmpty() && !sql3.isEmpty()) ? " AND" : "";
+
+            } else {
+                //Se não há condição algmuma, as Strings são vazias
+                where = "";
+                sql2 = "";
+                sql3 = "";
+                and = "";
+            }
+
+            //Monta a SQL completa:
+            String sqlFinal = "SELECT * FROM compromisso" + where + sql2 + and + sql3
+                    + " ORDER BY STR_TO_DATE(data, '%d/%m/%Y') " + direcao
+                    + ", STR_TO_DATE(horario, '%H : %i') " + direcao + ";";
+
+            PreparedStatement statement = conexao.prepareStatement(sqlFinal);
+
+            //Se há condição de busca pelo nome, preenche o parâmetro corretamente
+            if(!sql3.isEmpty()) statement.setString(1, pesquisa + "%");
+
+            ResultSet result = statement.executeQuery();
+
+            ArrayList<Compromisso> retorno = new ArrayList<>();
+            while(result.next()) {
+                Compromisso c = new Compromisso(result.getLong("id"), result.getString("nome"),
+                        result.getString("descricao"), result.getString("data"),
+                        result.getString("horario"), result.getString("nomeContato"),
+                        result.getString("telefone"), result.getBoolean("situacao"));
+
+                retorno.add(c);
+            }
+
+            return retorno;
+
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }

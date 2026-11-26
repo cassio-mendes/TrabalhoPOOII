@@ -34,6 +34,8 @@ public class Tela extends JFrame {
         menu.addChangeListener(e -> {
             if(menu.getSelectedIndex() == 1)
                 editarTab.preencherLista();
+            else if(menu.getSelectedIndex() == 2)
+                consultarTab.consultar();
         });
 
         this.add(menu);
