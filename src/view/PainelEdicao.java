@@ -81,6 +81,7 @@ public class PainelEdicao extends JPanel {
         salvarBtn.setFont(fonte);
         salvarBtn.setBackground(Color.WHITE);
         salvarBtn.setBounds(100, 575, 100, 30);
+        salvarBtn.setFocusPainted(false);
         salvarBtn.addActionListener(e -> {
 
             if(listaCompromissos.isSelectionEmpty()) {
@@ -127,6 +128,7 @@ public class PainelEdicao extends JPanel {
         excluirBTn.setFont(fonte);
         excluirBTn.setBackground(Color.WHITE);
         excluirBTn.setBounds(250, 575, 100, 30);
+        excluirBTn.setFocusPainted(false);
         excluirBTn.addActionListener(e -> {
 
             if(listaCompromissos.isSelectionEmpty()) {
@@ -155,6 +157,7 @@ public class PainelEdicao extends JPanel {
         limparBtn.setFont(fonte);
         limparBtn.setBackground(Color.WHITE);
         limparBtn.setBounds(400, 575, 100, 30);
+        limparBtn.setFocusPainted(false);
         limparBtn.addActionListener(e -> {
             listaCompromissos.clearSelection();
 
